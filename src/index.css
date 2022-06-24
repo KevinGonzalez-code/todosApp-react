@@ -1,0 +1,13 @@
+#list-todos{
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+#list-todos::-webkit-scrollbar{
+  width: 7px;
+}
+
+#list-todos::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-color: #0066ea;
+}
