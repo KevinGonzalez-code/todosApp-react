@@ -19,7 +19,6 @@ export const InputCreateTodo = () => {
     if( todo === undefined ){
       const newTodo = { id: new Date().getTime(), ...formState, done: false };
       dispatch(setTodo(newTodo));
-      console.log('Crete new todo');
     }else{
       dispatch(deleteTodo( todo.id ));
       const todoModify = {...formState, id : todo.id, done: todo.done}      

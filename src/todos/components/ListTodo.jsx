@@ -1,16 +1,16 @@
-import { TurnedInNot } from '@mui/icons-material';
-import { Button, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Grid, List } from '@mui/material';
 import { useContext } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { TodoContext } from '../../context/TodoContext';
 import { deleteTodo } from '../../store/slices/todosSlice';
+import { ListItemTodo } from './ListItemTodo';
 
 export const ListTodo = () => {
 
   const { todos } = useSelector(state => state.todos);
   const dispatch = useDispatch();
-  const { todo, setTodoModify } = useContext(TodoContext);
+  const { setTodoModify } = useContext(TodoContext);
 
   const onDeleteTodo = (id) => {
     dispatch(deleteTodo(id));
@@ -20,12 +20,6 @@ export const ListTodo = () => {
     let todoModify = todos.find(todo => todo.id === id);
     setTodoModify(todoModify);
     document.getElementsByName('description')[0].value = todoModify.description;
-
-    // dispatch(deleteTodo(id));
-    // dispatch(setTodo({
-    //   ...todo,
-    //   description: 'Modify'
-    // }));
   }
 
   return (
@@ -38,38 +32,12 @@ export const ListTodo = () => {
       <List sx={{ width: '100%' }}>
         {
           todos.map(todo => (
-            <ListItem key={todo.id} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <TurnedInNot />
-                </ListItemIcon>
-                <Grid container >
-                  <ListItemText secondary={todo.description} />
-                  <ListItemText >
-                    <Grid item sx={{                     
-                      display: 'flex',
-                      justifyContent: 'end'
-                    }}>
-                      <Button
-                        variant="outlined"
-                        sx={{ mr: 2, ml: 2 }}
-                        onClick={() => onEdit(todo.id)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        onClick={() => onDeleteTodo(todo.id)}
-                      >
-                        Delete
-                      </Button>
-
-                    </Grid>
-                  </ListItemText>
-                </Grid>
-              </ListItemButton>
-            </ListItem>
+            <ListItemTodo
+              key={todo.id}
+              onDeleteTodo={onDeleteTodo}
+              onEdit={onEdit}
+              todo={todo}
+            />
           ))
         }
       </List>
