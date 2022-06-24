@@ -17,7 +17,7 @@ export const ListItemTodo = ({ onDeleteTodo, onEdit, todo }) => {
     const todoModify = { id: todo.id, description: todo.description, done: !todo.done }
     setTodoModify(todoModify);
     dispatch(setTodo(todoModify));
-
+    setTodoModify(undefined);
   }
 
   return (
